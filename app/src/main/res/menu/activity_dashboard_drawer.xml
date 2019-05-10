@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <group android:id="@+id/bidder_nav_menu" android:visible="false" android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_explore"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Explore Products"/>
+        <item
+                android:id="@+id/nav_bid_product"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Bidded Product"/>
+        <item
+                android:id="@+id/nav_bid_win"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Bid Win"/>
+    </group>
+
+    <group android:id="@+id/auctioner_nav_menu" android:visible="false" android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_auctioner_product"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Explore Products"/>
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="@string/menu_share"/>
+
+        </menu>
+    </item>
+</menu>

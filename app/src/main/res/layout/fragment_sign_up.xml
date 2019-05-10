@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:theme="@style/MaterialTheme"
         android:layout_width="match_parent" android:layout_height="match_parent"
-        tools:context=".controller.SignUpFragment">
+        tools:context=".controller.registration.SignUpFragment">
 
     <!--<TextView-->
             <!--android:text="@string/create_account"-->
@@ -80,6 +80,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="20dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:hint="@string/contact_number">
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/createAccUserContactNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <RadioGroup

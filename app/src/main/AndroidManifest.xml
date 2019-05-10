@@ -11,8 +11,17 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan">
         <activity
-                android:name=".RegisterActivity"
-                android:configChanges="orientation|screenSize">
+                android:name=".controller.dashboard.DashboardActivity"
+                android:configChanges="orientation|screenSize"
+                android:label="@string/title_activity_dashboard"
+                android:noHistory="true"
+                android:theme="@style/NoActionBar">
+        </activity>
+        <activity
+                android:name=".controller.registration.RegisterActivity"
+                android:configChanges="orientation|screenSize"
+                android:noHistory="true"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

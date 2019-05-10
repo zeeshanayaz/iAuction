@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.zeeshan.iauction.controller.SignInFragment
-import com.zeeshan.iauction.controller.SignUpFragment
+import com.zeeshan.iauction.controller.registration.SignInFragment
+import com.zeeshan.iauction.controller.registration.SignUpFragment
 
 class FragmentViewPagerAdapter(var ctx: Context, var fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {

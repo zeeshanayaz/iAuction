@@ -26,7 +26,6 @@ class AppPref(var context: Context) {
         edit.apply()
     }
 
-
     //    Auctioner Data
     fun getAuctioner(): Auctioner? {
         val sharedPreferences = context.getSharedPreferences("App", 0)
@@ -45,13 +44,13 @@ class AppPref(var context: Context) {
         edit.putString("auctioner", Gson().toJson(auctioner))
         edit.apply()
     }
-    fun deleteCompany(){
+
+    fun deleteAuctioner() {
         val sharedPreferences = context.getSharedPreferences("App", 0)
         val edit = sharedPreferences.edit()
         edit.putString("auctioner", null)
         edit.apply()
     }
-
 
 
     //    Student Data
@@ -72,7 +71,8 @@ class AppPref(var context: Context) {
         edit.putString("bidder", Gson().toJson(bidder))
         edit.apply()
     }
-    fun deleteBidder(){
+
+    fun deleteBidder() {
         val sharedPreferences = context.getSharedPreferences("App", 0)
         val edit = sharedPreferences.edit()
         edit.putString("bidder", null)
