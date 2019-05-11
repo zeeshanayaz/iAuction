@@ -45,8 +45,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_profile_image"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:civ_border_width="1dp"
                     app:civ_border_color="@color/primaryLightColor"
                     app:civ_circle_background_color="@color/colorWhite"
@@ -66,5 +66,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_dashboard"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_add_item_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/ic_plus_24"
+            android:layout_marginEnd="16dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

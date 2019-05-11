@@ -48,6 +48,7 @@ dependencies {
 //    Image Loader Glide Library
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
 
 }

@@ -31,5 +31,28 @@
     <string name="action_sign_out">Sign Out</string>
 
     <string name="explore">Explore</string>
+    <string name="add_item">Add Item</string>
 
+
+    <!--Spinner-->
+
+    <string-array name="item_category">
+        <item>Category</item>
+        <item>Mobile Phones</item>
+        <item>Electronics</item>
+        <item>Computer</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="item_condition">
+        <item>Condition</item>
+        <item>New</item>
+        <item>Used</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--End Spinner-->
 </resources>

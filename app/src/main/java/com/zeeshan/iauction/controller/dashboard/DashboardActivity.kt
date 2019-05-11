@@ -7,26 +7,47 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.zeeshan.iauction.R
 import com.zeeshan.iauction.controller.registration.RegisterActivity
+import com.zeeshan.iauction.model.Auctioner
+import com.zeeshan.iauction.model.Bidder
 import com.zeeshan.iauction.model.User
 import com.zeeshan.iauction.utilities.AppPref
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
 
+    private lateinit var appPrefUser: User      //User from App Preference
+    private var appPrefAuction: Auctioner? = null      //Company from App Preference
+    private var appPrefBidder: Bidder? = null      //Company from App Preference
+    private lateinit var dbReference: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         setSupportActionBar(toolbar_dashboard)
 
+        appPrefUser = AppPref(this).getUser()!!
+        dbReference = FirebaseFirestore.getInstance()
+
+//        if (appPrefUser.userAccType.equals("Bidder")) {
+//            floating_add_item_btn.visibility = View.GONE
+//        } else {
+//            floating_add_item_btn.visibility = View.VISIBLE
+//        }
+
+        checkVisibileView()
+
 
         startFragment()
+
 
 
         user_profile_image.setOnClickListener {
@@ -35,14 +56,40 @@ class DashboardActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener
                 setOnMenuItemClickListener(this@DashboardActivity)
                 inflate(R.menu.dashboard)
                 show()
+
+//                if (appPrefUser.userAccType.equals("Bidder")){
+//                    menu.findItem(R.id.action_add_item).setVisible(false)
+//                }
             }
-//            val popup = PopupMenu(this, it)
-//            val inflater: MenuInflater = popup.menuInflater
-//            PopupMenu.setOnMenuItemClickListener(this@DashboardActivity)
-//            inflater.inflate(R.menu.dashboard, popup.menu)
-//            popup.show()
         }
 
+
+        floating_add_item_btn.setOnClickListener {
+            toolbar_title.setText("Post Your Products")
+            supportFragmentManager.beginTransaction().replace(
+                R.id.dashboardContainer,
+                PostItemFragment()
+            ).addToBackStack("dashboard").commit()
+            floating_add_item_btn.visibility = View.INVISIBLE
+//            Snackbar.make(it, "Add Item Floating Button Clicked", Snackbar.LENGTH_SHORT).show()
+        }
+
+    }
+
+    private fun checkVisibileView() {
+        supportFragmentManager.findFragmentById(R.id.dashboardContainer)?.let {
+            // the fragment exists
+            if (it is ExploreFragment) {
+                // The presented fragment is FooFragment type
+                if (appPrefUser.userAccType.equals("Bidder")) {
+                    floating_add_item_btn.visibility = View.GONE
+                } else {
+                    floating_add_item_btn.visibility = View.VISIBLE
+                }
+            } else {
+                floating_add_item_btn.visibility = View.INVISIBLE
+            }
+        }
     }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
@@ -72,7 +119,7 @@ class DashboardActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 val curUser = FirebaseAuth.getInstance()
                 curUser.signOut()
-                val user = User("", "", "","")
+                val user = User("", "", "", "")
                 AppPref(this@DashboardActivity).setUser(user)
                 AppPref(this@DashboardActivity).deleteBidder()
                 AppPref(this@DashboardActivity).deleteAuctioner()
