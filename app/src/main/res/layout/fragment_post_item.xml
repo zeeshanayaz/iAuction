@@ -1,133 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:theme="@style/MaterialTheme"
-        tools:context=".controller.dashboard.PostItemFragment">
+<ScrollView
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
 
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Post Your Product"-->
-    <!--style="@style/registrationHeading"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent"-->
-    <!--android:id="@+id/textView"-->
-    <!--android:visibility="gone"/>-->
-
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="32dp"
-            android:layout_marginTop="16dp"
-            android:weightSum="1" app:layout_constraintTop_toTopOf="parent" android:id="@+id/linearLayout">
+            android:theme="@style/MaterialTheme"
+            tools:context=".controller.dashboard.PostItemFragment">
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Post Your Product"-->
+        <!--style="@style/registrationHeading"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent"-->
+        <!--android:id="@+id/textView"-->
+        <!--android:visibility="gone"/>-->
+
 
         <LinearLayout
-                android:layout_width="0dp"
+                android:baselineAligned="false"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="0.5">
-            <TextView
-                    android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp"
+                android:weightSum="1" app:layout_constraintTop_toTopOf="parent" android:id="@+id/linearLayout">
+
+            <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Choose a Category"/>
-            <Spinner
-                    android:id="@+id/category_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-            </Spinner>
+                    android:orientation="vertical"
+                    android:layout_weight="0.5">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/choose_a_category"/>
+                <Spinner
+                        android:id="@+id/category_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_condition"/>
+                <Spinner
+                        android:id="@+id/category_condition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                </Spinner>
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
-                android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemManufacturerEditTextLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="0.5">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Item Condition"/>
-            <Spinner
-                    android:id="@+id/category_condition"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/itemManufacturerEditText"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-            </Spinner>
-        </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:hint="@string/manufacturer_name"
+                    android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itemManufacturerEditTextLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp" android:layout_marginTop="16dp">
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/itemManufacturerEditText"
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemTitleEditTextLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Manufacturer Name"
-                android:inputType="text"/>
-    </com.google.android.material.textfield.TextInputLayout>
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintTop_toBottomOf="@+id/itemManufacturerEditTextLayout"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/itemTitleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/title"
+                    android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itemTitleEditTextLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toBottomOf="@+id/itemManufacturerEditTextLayout"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp" android:layout_marginTop="16dp">
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/itemTitleEditText"
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemDescriptionEditTextLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Title"
-                android:inputType="text"/>
-    </com.google.android.material.textfield.TextInputLayout>
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintTop_toBottomOf="@+id/itemTitleEditTextLayout"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/itemDescriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description"
+                    android:inputType="textMultiLine"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itemDescriptionEditTextLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toBottomOf="@+id/itemTitleEditTextLayout"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp" android:layout_marginTop="16dp">
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/itemDescriptionEditText"
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemMinBidAmmEditTextLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Description"
-                android:inputType="textMultiLine"/>
-    </com.google.android.material.textfield.TextInputLayout>
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:layout_constraintTop_toBottomOf="@+id/itemDescriptionEditTextLayout"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                android:layout_marginTop="16dp">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/itemMinBidAmmEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/minimum_bid_amount"
+                    android:drawableStart="@drawable/icon_dollar"
+                    android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/itemMinBidAmmEditTextLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toBottomOf="@+id/itemDescriptionEditTextLayout"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp" android:layout_marginTop="16dp">
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/itemMinBidAmmEditText"
+        <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Minimum Bid Amount"
-                android:drawableStart="@drawable/icon_dollar"
-                android:inputType="number"/>
-    </com.google.android.material.textfield.TextInputLayout>
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="@string/select_bid_end_date_amp_time" android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/itemMinBidAmmEditTextLayout"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+                android:id="@+id/selectEndBidDateBtn"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+                android:id="@+id/itemBidEndDateText"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textSize="20sp"
+                tools:text="End Date"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/selectEndBidDateBtn" android:layout_marginTop="8dp"
+                android:visibility="visible"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/itemSelectImageBtn"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:foreground="@drawable/ic_menu_gallery"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/itemBidEndDateText"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+        />
+
+        <ImageView
+                android:id="@+id/itemImageView"
+                android:contentDescription="@string/item_image"
+                android:layout_width="130dp" android:layout_height="130dp"
+                app:layout_constraintStart_toEndOf="@+id/itemSelectImageBtn" android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/itemSelectImageBtn"
+                android:background="@drawable/dotted"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/itemSubmitBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="@string/submit"
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toBottomOf="@+id/itemSelectImageBtn"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="32dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="32dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
