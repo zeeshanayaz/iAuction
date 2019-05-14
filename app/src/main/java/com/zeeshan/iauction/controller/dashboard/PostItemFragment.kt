@@ -2,8 +2,10 @@ package com.zeeshan.iauction.controller.dashboard
 
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -17,7 +19,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import com.google.firebase.firestore.FirebaseFirestore
 import com.zeeshan.iauction.R
+import com.zeeshan.iauction.model.Item
+import com.zeeshan.iauction.model.User
+import com.zeeshan.iauction.utilities.AppPref
 import kotlinx.android.synthetic.main.fragment_post_item.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,10 +33,15 @@ class PostItemFragment : Fragment() {
     private lateinit var categorySpinner: Spinner
     private lateinit var conditionSpinner: Spinner
     private lateinit var itemImageView: ImageView
-    private lateinit var selectItemImageBtn : Button
+    private lateinit var selectItemImageBtn: Button
+    private lateinit var datePickerButton: Button
+    private lateinit var submitBtn: Button
     var dateFormat = SimpleDateFormat("MMM d, yyyy h:mm a", Locale.US)
     var selectedPhotoUri: Uri? = null
-
+    private lateinit var dialogBuilder: AlertDialog
+    private lateinit var appPrefUser: User      //User from App Preference
+    private lateinit var dbReference: FirebaseFirestore
+    private lateinit var selectedDate: Calendar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +50,13 @@ class PostItemFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_post_item, container, false)
 
-        val datePickerButton = view.findViewById<Button>(R.id.selectEndBidDateBtn)
-//        val floatingAddItemBtn = view.findViewById<Button>(R.id.floating_add_item_btn)
-//        floatingAddItemBtn.visibility = View.INVISIBLE
+        appPrefUser = AppPref(activity!!).getUser()!!
+        dbReference = FirebaseFirestore.getInstance()
 
+        datePickerButton = view.findViewById<Button>(R.id.selectEndBidDateBtn)
         itemImageView = view.findViewById(R.id.itemImageView)
         selectItemImageBtn = view.findViewById<Button>(R.id.itemSelectImageBtn)
+        submitBtn = view.findViewById<Button>(R.id.itemSubmitBtn)
         categorySpinner = view.findViewById(R.id.category_spinner)
         conditionSpinner = view.findViewById(R.id.category_condition)
 
@@ -65,7 +77,7 @@ class PostItemFragment : Fragment() {
 
         datePickerButton.setOnClickListener {
             val now = Calendar.getInstance()
-            val selectedDate = Calendar.getInstance()
+            selectedDate = Calendar.getInstance()
 
             try {
                 if (itemBidEndDateText.text != "") {
@@ -107,20 +119,97 @@ class PostItemFragment : Fragment() {
             )
             datePicker.show()
         }
-
-
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        selectItemImageBtn.setOnClickListener {
-            Log.d("POSTITEMFRAGMENT", "Item Select Photo Button Pressed")
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 0)
+//        selectItemImageBtn.setOnClickListener {
+//            Log.d("POSTITEMFRAGMENT", "Item Select Photo Button Pressed")
+//            val intent = Intent(Intent.ACTION_PICK)
+//            intent.type = "image/*"
+//            startActivityForResult(intent, 0)
+//        }
+
+        submitBtn.setOnClickListener {
+
+            progressShow()
+
+            postItemToFirestore(
+                appPrefUser,
+                categorySpinner.selectedItem.toString(),
+                conditionSpinner.selectedItem.toString(),
+                itemManufacturerEditText.text!!.trim().toString(),
+                itemTitleEditText.text!!.trim().toString(),
+                itemDescriptionEditText.text!!.trim().toString(),
+                itemMinBidAmmEditText.text!!.trim().toString(),
+                selectedDate
+            )
+
+
         }
+
+    }
+
+    private fun postItemToFirestore(
+        appPrefUser: User,
+        category: String,
+        condition: String,
+        manufactureName: String,
+        title: String,
+        description: String,
+        bidAmountMin: String,
+        bidEndDate: Calendar
+    ) {
+        val dbRef = dbReference.collection("Item").document()
+        val itemPost = Item(
+            dbRef.id,
+            category,
+            condition,
+            manufactureName,
+            title,
+            description,
+            bidAmountMin.toInt(),
+            null,
+            System.currentTimeMillis(),
+            bidEndDate,
+            "Available",
+            appPrefUser.userId,
+            arrayListOf()
+        )
+
+        dbRef.set(itemPost)
+            .addOnSuccessListener {
+                Log.d(ContentValues.TAG, "${itemPost.toString()} successfully written!")
+
+                clearInputFields()
+
+                dialogBuilder.dismiss()
+            }
+            .addOnFailureListener {
+                Log.w(ContentValues.TAG, "Error writing document", it)
+                dialogBuilder.dismiss()
+            }
+    }
+
+    private fun clearInputFields() {
+        conditionSpinner.setSelection(0)
+        categorySpinner.setSelection(0)
+        itemManufacturerEditText.setText("")
+        itemTitleEditText.setText("")
+        itemDescriptionEditText.setText("")
+        itemMinBidAmmEditText.setText("")
+        itemBidEndDateText.setText("")
+        itemImageView.setImageBitmap(null)
+    }
+
+    private fun progressShow() {
+        val progressDialog = LayoutInflater.from(activity).inflate(R.layout.progress_dialog, null)
+        dialogBuilder = AlertDialog.Builder(activity)
+            .setCancelable(false)
+            .setView(progressDialog)
+            .show()
     }
 
 
