@@ -51,5 +51,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
 
+    implementation 'id.zelory:compressor:2.1.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

@@ -12,7 +12,8 @@ class Item(
     var itemMinBid: Int = 0,
     var itemPictureUrl: String? = null,
     var itemPostDateTime: Long = 0,
-    var itemFinalDateTime: Calendar? = null,
+//    var itemFinalDateTime: Calendar? = null,
+    var itemFinalDateTime: Long = 0,
     var itemStatus: String = "",
     var itemOwnerId: String = "",
     var itemBidderList: ArrayList<String>? = null

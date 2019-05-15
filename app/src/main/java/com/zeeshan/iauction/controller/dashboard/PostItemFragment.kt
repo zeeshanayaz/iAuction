@@ -7,6 +7,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -14,12 +15,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Spinner
+import android.widget.*
 import androidx.fragment.app.Fragment
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import com.zeeshan.iauction.R
 import com.zeeshan.iauction.model.Item
 import com.zeeshan.iauction.model.User
@@ -125,34 +125,67 @@ class PostItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        selectItemImageBtn.setOnClickListener {
-//            Log.d("POSTITEMFRAGMENT", "Item Select Photo Button Pressed")
-//            val intent = Intent(Intent.ACTION_PICK)
-//            intent.type = "image/*"
-//            startActivityForResult(intent, 0)
-//        }
+        selectItemImageBtn.setOnClickListener {
+            Log.d("POSTITEMFRAGMENT", "Item Select Photo Button Pressed")
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, 0)
+        }
 
         submitBtn.setOnClickListener {
 
             progressShow()
+            val dbRef = dbReference.collection("Item").document()
 
-            postItemToFirestore(
-                appPrefUser,
-                categorySpinner.selectedItem.toString(),
-                conditionSpinner.selectedItem.toString(),
-                itemManufacturerEditText.text!!.trim().toString(),
-                itemTitleEditText.text!!.trim().toString(),
-                itemDescriptionEditText.text!!.trim().toString(),
-                itemMinBidAmmEditText.text!!.trim().toString(),
-                selectedDate
-            )
+            postItemImageToFirebase(dbRef)
+
+//            postItemToFirestore(
+//                dbRef,
+//                appPrefUser,
+//                categorySpinner.selectedItem.toString(),
+//                conditionSpinner.selectedItem.toString(),
+//                itemManufacturerEditText.text!!.trim().toString(),
+//                itemTitleEditText.text!!.trim().toString(),
+//                itemDescriptionEditText.text!!.trim().toString(),
+//                itemMinBidAmmEditText.text!!.trim().toString(),
+//                selectedDate
+//            )
 
 
         }
 
     }
 
+    private fun postItemImageToFirebase(key: DocumentReference) {
+        val ref = FirebaseStorage.getInstance().getReference("/item/${key.id}")
+        ref.putFile(selectedPhotoUri!!)
+            .addOnSuccessListener { uri ->
+                ref.downloadUrl.addOnSuccessListener {
+
+
+                    postItemToFirestore(
+                        key,
+                        appPrefUser,
+                        categorySpinner.selectedItem.toString(),
+                        conditionSpinner.selectedItem.toString(),
+                        itemManufacturerEditText.text!!.trim().toString(),
+                        itemTitleEditText.text!!.trim().toString(),
+                        itemDescriptionEditText.text!!.trim().toString(),
+                        itemMinBidAmmEditText.text!!.trim().toString(),
+                        selectedDate,
+                        it.toString()
+                    )
+
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(activity, "Profile Picture failed to update....", Toast.LENGTH_SHORT).show()
+                dialogBuilder.dismiss()
+            }
+    }
+
     private fun postItemToFirestore(
+        dbRef: DocumentReference,
         appPrefUser: User,
         category: String,
         condition: String,
@@ -160,9 +193,10 @@ class PostItemFragment : Fragment() {
         title: String,
         description: String,
         bidAmountMin: String,
-        bidEndDate: Calendar
+        bidEndDate: Calendar,
+        imageUrl: String
     ) {
-        val dbRef = dbReference.collection("Item").document()
+
         val itemPost = Item(
             dbRef.id,
             category,
@@ -171,9 +205,9 @@ class PostItemFragment : Fragment() {
             title,
             description,
             bidAmountMin.toInt(),
-            null,
+            imageUrl,
             System.currentTimeMillis(),
-            bidEndDate,
+            bidEndDate.timeInMillis.toLong(),
             "Available",
             appPrefUser.userId,
             arrayListOf()
@@ -182,9 +216,7 @@ class PostItemFragment : Fragment() {
         dbRef.set(itemPost)
             .addOnSuccessListener {
                 Log.d(ContentValues.TAG, "${itemPost.toString()} successfully written!")
-
                 clearInputFields()
-
                 dialogBuilder.dismiss()
             }
             .addOnFailureListener {
@@ -212,25 +244,13 @@ class PostItemFragment : Fragment() {
             .show()
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             selectedPhotoUri = data.data
             val inputStream = activity!!.contentResolver.openInputStream(selectedPhotoUri!!)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             itemImageView.setImageBitmap(bitmap)
-//            itemImageView.alpha = 0f
-
-
-//            progress.setMessage("Please wait, while we are updating profile picture.....")
-//            progress.setCancelable(false)
-//            progress.show()
-//
-//
-//
-//            uploadImageToFirebase()
             super.onActivityResult(requestCode, resultCode, data)
-
         }
     }
 

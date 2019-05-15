@@ -16,7 +16,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/search_bar">
+            android:id="@+id/search_bar"
+            android:visibility="gone">
         <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -107,7 +108,6 @@
     <!--app:tabMode="scrollable"/>-->
 
     <!--</androidx.viewpager.widget.ViewPager>-->
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

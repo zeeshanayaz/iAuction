@@ -15,9 +15,8 @@
             android:windowSoftInputMode="adjustPan">
         <activity
                 android:name=".controller.dashboard.DashboardActivity"
-                android:configChanges="orientation|screenSize"
                 android:label="@string/title_activity_dashboard"
-                android:noHistory="true"
+                android:noHistory="false"
                 android:theme="@style/NoActionBar"
                 android:windowSoftInputMode="adjustPan">
         </activity>
@@ -34,5 +33,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

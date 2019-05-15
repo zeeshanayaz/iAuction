@@ -2,9 +2,163 @@
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        app:cardCornerRadius="4dp"
+        app:contentPadding="4dp"
         app:cardElevation="6dp"
         app:cardUseCompatPadding="true">
 
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+        <TextView
+                android:id="@+id/cardItemTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Title"
+                android:textColor="@color/primaryDarkColor"
+                android:textSize="20sp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"/>
+
+        <TextView
+                android:id="@+id/cardItemManufacture"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                tools:text="Manufacture Name"
+                android:textColor="@color/primaryLightColor"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/cardItemTitle"
+                android:layout_alignParentStart="true"/>
+
+        <TextView
+                android:id="@+id/cardItemStatus"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                tools:text="Status"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"/>
+
+        <LinearLayout
+                android:id="@+id/categoryconditionGroup"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_below="@+id/cardItemManufacture"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentStart="true">
+            <LinearLayout
+                    android:id="@+id/cardItemCategoryGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5">
+                <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Category"
+                        android:textSize="12sp"
+                        android:textColor="@color/secondaryTextColorBlack"/>
+                <TextView
+                        android:id="@+id/cardItemCategory"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        tools:text="Phone"
+                        android:textSize="16sp"
+                        android:textColor="@color/primaryTextColorBlack"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/cardItemConditionGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5">
+                <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Condition"
+                        android:textSize="12sp"
+                        android:textColor="@color/secondaryTextColorBlack"/>
+                <TextView
+                        android:id="@+id/cardItemCondition"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        tools:text="New"
+                        android:textSize="16sp"
+                        android:textColor="@color/primaryTextColorBlack"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+                android:id="@+id/cardItemImageGroup"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/categoryconditionGroup">
+            <ImageView
+                    android:id="@+id/cardItemImage"
+                    android:layout_width="wrap_content" android:layout_height="200dp"
+                    tools:srcCompat="@drawable/userdefaultprofileimage"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:contentDescription="Item Image"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:id="@+id/cardItemBidAmountGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/cardItemImageGroup"
+                android:layout_marginTop="14dp"
+                android:layout_alignParentStart="true">
+            <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Bid Amount"
+                    android:textSize="14sp"
+                    android:textColor="@color/secondaryTextColorBlack"/>
+            <LinearLayout
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="$"
+                        android:textSize="24sp"
+                        android:textColor="@color/primaryDarkColor"/>
+                <TextView
+                        android:id="@+id/cardItemBidAmount"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        tools:text="120.0"
+                        android:textSize="20sp"
+                        android:textColor="@color/primaryTextColorBlack"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/cardItemBidEndDateGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/cardItemBidAmountGroup"
+                android:layout_marginTop="4dp"
+                android:layout_alignParentStart="true">
+            <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Bid Last on"
+                    android:textSize="14sp"
+                    android:textColor="@color/secondaryTextColorBlack"/>
+            <TextView
+                    android:id="@+id/cardItemBidEndDate"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    tools:text="Monday, 30 March, 2019"
+                    android:textSize="20sp"
+                    android:textColor="@color/primaryTextColorBlack"/>
+        </LinearLayout>
+
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
