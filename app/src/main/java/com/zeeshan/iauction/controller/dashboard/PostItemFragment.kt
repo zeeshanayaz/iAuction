@@ -11,6 +11,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import com.zeeshan.iauction.model.Item
 import com.zeeshan.iauction.model.User
 import com.zeeshan.iauction.utilities.AppPref
 import kotlinx.android.synthetic.main.fragment_post_item.*
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -90,7 +92,7 @@ class PostItemFragment : Fragment() {
 
             val datePicker = DatePickerDialog(
                 activity!!,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
 
                     selectedDate.set(Calendar.YEAR, year)
                     selectedDate.set(Calendar.MONTH, month)
@@ -98,7 +100,7 @@ class PostItemFragment : Fragment() {
 
                     val timePicker = TimePickerDialog(
                         activity!!,
-                        TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                        TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
 
                             selectedDate.set(Calendar.HOUR_OF_DAY, hourOfDay)
                             selectedDate.set(Calendar.MINUTE, minute)
@@ -158,10 +160,15 @@ class PostItemFragment : Fragment() {
 
     private fun postItemImageToFirebase(key: DocumentReference) {
         val ref = FirebaseStorage.getInstance().getReference("/item/${key.id}")
-        ref.putFile(selectedPhotoUri!!)
+
+        val bmp = MediaStore.Images.Media.getBitmap(activity!!.getContentResolver(), selectedPhotoUri);
+        val baos = ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        val data = baos.toByteArray();
+
+        ref.putBytes(data)
             .addOnSuccessListener { uri ->
                 ref.downloadUrl.addOnSuccessListener {
-
 
                     postItemToFirestore(
                         key,

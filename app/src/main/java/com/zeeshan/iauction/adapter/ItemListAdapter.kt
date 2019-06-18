@@ -7,10 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import com.zeeshan.iauction.R
 import com.zeeshan.iauction.model.Item
 import com.zeeshan.iauction.utilities.AppPref
@@ -64,14 +62,7 @@ class ItemListAdapter(
                 imageUrl = dummyImage
             }
 
-            Glide.with(context).applyDefaultRequestOptions(RequestOptions().apply() {
-                placeholder(CircularProgressDrawable(context).apply {
-                    strokeWidth = 2f
-                    centerRadius = 50f
-                    start()
-                })
-            }).load(imageUrl).into(itemImage)
-
+            Picasso.get().load(imageUrl).placeholder(R.drawable.progress_animation).into(itemImage)
 
             view.setOnClickListener {
                 itemClick(item)

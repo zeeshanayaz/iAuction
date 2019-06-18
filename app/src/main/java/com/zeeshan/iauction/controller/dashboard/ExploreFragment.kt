@@ -130,7 +130,7 @@ class ExploreFragment : Fragment() {
                                 Log.d("ItemExploreFragment", itemList.toString())
                                 itemListAdapter.notifyDataSetChanged()
                             }catch (e: Exception){
-                                e.printStackTrace()
+                                Toast.makeText(activity, "${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
                             }
                         }
 

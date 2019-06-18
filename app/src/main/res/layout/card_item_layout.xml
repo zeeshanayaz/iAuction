@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         app:cardCornerRadius="4dp"
         app:contentPadding="4dp"
@@ -11,7 +11,7 @@
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="16dp">
 
         <TextView
@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 tools:text="Title"
                 android:textColor="@color/primaryDarkColor"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"/>
 
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 tools:text="Manufacture Name"
                 android:textColor="@color/primaryLightColor"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:layout_marginTop="4dp"
                 android:layout_below="@id/cardItemTitle"
                 android:layout_alignParentStart="true"/>
@@ -39,8 +39,8 @@
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 tools:text="Status"
                 android:textColor="@color/colorAccent"
-                android:textSize="12sp" android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
+                android:textSize="10sp" android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"/>
 
@@ -61,13 +61,13 @@
                 <TextView
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="Category"
-                        android:textSize="12sp"
+                        android:textSize="10sp"
                         android:textColor="@color/secondaryTextColorBlack"/>
                 <TextView
                         android:id="@+id/cardItemCategory"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         tools:text="Phone"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="@color/primaryTextColorBlack"/>
             </LinearLayout>
 
@@ -80,13 +80,13 @@
                 <TextView
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="Condition"
-                        android:textSize="12sp"
+                        android:textSize="10sp"
                         android:textColor="@color/secondaryTextColorBlack"/>
                 <TextView
                         android:id="@+id/cardItemCondition"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         tools:text="New"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="@color/primaryTextColorBlack"/>
             </LinearLayout>
         </LinearLayout>
@@ -102,7 +102,7 @@
                 android:layout_below="@id/categoryconditionGroup">
             <ImageView
                     android:id="@+id/cardItemImage"
-                    android:layout_width="wrap_content" android:layout_height="200dp"
+                    android:layout_width="wrap_content" android:layout_height="120dp"
                     tools:srcCompat="@drawable/userdefaultprofileimage"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
@@ -121,7 +121,7 @@
             <TextView
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:text="Bid Amount"
-                    android:textSize="14sp"
+                    android:textSize="10sp"
                     android:textColor="@color/secondaryTextColorBlack"/>
             <LinearLayout
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -129,13 +129,13 @@
                 <TextView
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:text="$"
-                        android:textSize="24sp"
+                        android:textSize="18sp"
                         android:textColor="@color/primaryDarkColor"/>
                 <TextView
                         android:id="@+id/cardItemBidAmount"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         tools:text="120.0"
-                        android:textSize="20sp"
+                        android:textSize="12sp"
                         android:textColor="@color/primaryTextColorBlack"/>
             </LinearLayout>
         </LinearLayout>
@@ -156,7 +156,7 @@
                     android:id="@+id/cardItemBidEndDate"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     tools:text="Monday, 30 March, 2019"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:textColor="@color/primaryTextColorBlack"/>
         </LinearLayout>
 
