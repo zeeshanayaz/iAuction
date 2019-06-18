@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
@@ -23,6 +23,7 @@ import com.zeeshan.iauction.adapter.ItemListAdapter
 import com.zeeshan.iauction.model.Item
 import com.zeeshan.iauction.model.User
 import com.zeeshan.iauction.utilities.AppPref
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
 class ExploreFragment : Fragment() {
@@ -32,7 +33,8 @@ class ExploreFragment : Fragment() {
     private lateinit var tabLayout: TabLayout
     private lateinit var itemListAdapter: ItemListAdapter
     private var itemList = ArrayList<Item>()
-    var spanCount = 1
+    private lateinit var addItemBtn : FloatingActionButton
+    var spanCount = 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +46,7 @@ class ExploreFragment : Fragment() {
         appPrefUser = AppPref(activity!!).getUser()!!
         dbReference = FirebaseFirestore.getInstance()
         tabLayout = view.findViewById<TabLayout>(com.zeeshan.iauction.R.id.product_tablayout)
+        addItemBtn = view.findViewById<FloatingActionButton>(R.id.floating_add_item_btn)
 
         return view
     }
@@ -52,20 +55,27 @@ class ExploreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE){
-            spanCount = 2
-        }
-        val screenSize = resources.configuration.screenWidthDp
-        if(screenSize > 720){
-            spanCount = 2
-        }
+//        val orientation = resources.configuration.orientation
+//        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            spanCount = 3
+//        }
+//        val screenSize = resources.configuration.screenWidthDp
+//        if (screenSize > 720) {
+//            spanCount = 3
+//        }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.product_recyclerview)
-
-
-
-
+        recyclerView.layoutManager = GridLayoutManager(activity!!, spanCount)
+        itemListAdapter = ItemListAdapter(activity!!, itemList, dbReference,
+            {
+                //            OnClick
+                Toast.makeText(activity!!, "Clicked ${it.itemTitle}", Toast.LENGTH_SHORT).show()
+            },
+            {
+                //            OnClick
+                Toast.makeText(activity!!, "Long Clicked ${it.itemTitle}", Toast.LENGTH_SHORT).show()
+            })
+        recyclerView.adapter = itemListAdapter
 
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -80,18 +90,6 @@ class ExploreFragment : Fragment() {
                 when (position) {
                     0 -> {
 
-                        recyclerView.layoutManager = GridLayoutManager(activity!!, spanCount)
-                        itemListAdapter = ItemListAdapter(activity!!, itemList, dbReference,
-                            {
-                                //            OnClick
-                                Toast.makeText(activity!!, "Clicked ${it.itemTitle}", Toast.LENGTH_SHORT).show()
-                            },
-                            {
-                                //            OnClick
-                                Toast.makeText(activity!!, "Long Clicked ${it.itemTitle}", Toast.LENGTH_SHORT).show()
-                            })
-
-                        recyclerView.adapter = itemListAdapter
                     }
                     1 -> {
 
@@ -111,6 +109,15 @@ class ExploreFragment : Fragment() {
         })
 
         retrieveAllItemList()
+
+        addItemBtn.setOnClickListener {
+//            toolbar_title.setText("Post Your Products")
+            activity!!.supportFragmentManager.beginTransaction().replace(
+                R.id.dashboardContainer,
+                PostItemFragment()
+            ).addToBackStack("explore").commit()
+        }
+
     }
 
     private fun retrieveAllItemList() {
@@ -129,7 +136,7 @@ class ExploreFragment : Fragment() {
                                 println(itemList)
                                 Log.d("ItemExploreFragment", itemList.toString())
                                 itemListAdapter.notifyDataSetChanged()
-                            }catch (e: Exception){
+                            } catch (e: Exception) {
                                 Toast.makeText(activity, "${e.printStackTrace()}", Toast.LENGTH_SHORT).show()
                             }
                         }

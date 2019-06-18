@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -43,7 +42,7 @@ class DashboardActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener
 //            floating_add_item_btn.visibility = View.VISIBLE
 //        }
 
-        checkVisibileView()
+//        checkVisibileView()
 
 
         startFragment()
@@ -64,33 +63,25 @@ class DashboardActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener
         }
 
 
-        floating_add_item_btn.setOnClickListener {
-            toolbar_title.setText("Post Your Products")
-            supportFragmentManager.beginTransaction().replace(
-                R.id.dashboardContainer,
-                PostItemFragment()
-            ).addToBackStack("dashboard").commit()
-            floating_add_item_btn.visibility = View.INVISIBLE
-//            Snackbar.make(it, "Add Item Floating Button Clicked", Snackbar.LENGTH_SHORT).show()
-        }
+
 
     }
 
-    private fun checkVisibileView() {
-        supportFragmentManager.findFragmentById(R.id.dashboardContainer)?.let {
-            // the fragment exists
-            if (it is ExploreFragment) {
-                // The presented fragment is FooFragment type
-                if (appPrefUser.userAccType.equals("Bidder")) {
-                    floating_add_item_btn.visibility = View.GONE
-                } else {
-                    floating_add_item_btn.visibility = View.VISIBLE
-                }
-            } else {
-                floating_add_item_btn.visibility = View.INVISIBLE
-            }
-        }
-    }
+//    private fun checkVisibileView() {
+//        supportFragmentManager.findFragmentById(R.id.dashboardContainer)?.let {
+//            // the fragment exists
+//            if (it is ExploreFragment) {
+//                // The presented fragment is FooFragment type
+//                if (appPrefUser.userAccType.equals("Bidder")) {
+//                    floating_add_item_btn.visibility = View.GONE
+//                } else {
+//                    floating_add_item_btn.visibility = View.VISIBLE
+//                }
+//            } else {
+//                floating_add_item_btn.visibility = View.INVISIBLE
+//            }
+//        }
+//    }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return when (item.itemId) {

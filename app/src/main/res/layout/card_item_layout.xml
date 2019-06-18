@@ -5,14 +5,17 @@
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         app:cardCornerRadius="4dp"
-        app:contentPadding="4dp"
+        app:contentPadding="1dp"
         app:cardElevation="6dp"
         app:cardUseCompatPadding="true">
 
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
 
         <TextView
                 android:id="@+id/cardItemTitle"
@@ -22,7 +25,8 @@
                 android:textColor="@color/primaryDarkColor"
                 android:textSize="14sp"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="14dp"/>
 
         <TextView
                 android:id="@+id/cardItemManufacture"
@@ -30,7 +34,7 @@
                 tools:text="Manufacture Name"
                 android:textColor="@color/primaryLightColor"
                 android:textSize="12sp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:layout_below="@id/cardItemTitle"
                 android:layout_alignParentStart="true"/>
 
@@ -39,8 +43,8 @@
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
                 tools:text="Status"
                 android:textColor="@color/colorAccent"
-                android:textSize="10sp" android:layout_marginEnd="4dp"
-                android:layout_marginTop="4dp"
+                android:textSize="10sp" android:layout_marginEnd="2dp"
+                android:layout_marginTop="2dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"/>
 
@@ -50,7 +54,7 @@
                 android:orientation="horizontal"
                 android:weightSum="1"
                 android:layout_below="@+id/cardItemManufacture"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_alignParentStart="true">
             <LinearLayout
                     android:id="@+id/cardItemCategoryGroup"
@@ -92,8 +96,6 @@
         </LinearLayout>
 
 
-
-
         <LinearLayout
                 android:id="@+id/cardItemImageGroup"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -116,10 +118,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/cardItemImageGroup"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="8dp"
                 android:layout_alignParentStart="true">
             <TextView
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Bid Amount"
                     android:textSize="10sp"
                     android:textColor="@color/secondaryTextColorBlack"/>
