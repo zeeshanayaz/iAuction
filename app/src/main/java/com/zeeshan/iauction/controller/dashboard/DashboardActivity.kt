@@ -5,12 +5,18 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.zeeshan.iauction.R
@@ -20,18 +26,50 @@ import com.zeeshan.iauction.model.Bidder
 import com.zeeshan.iauction.model.User
 import com.zeeshan.iauction.utilities.AppPref
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-class DashboardActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
+class DashboardActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener, NavigationView.OnNavigationItemSelectedListener  {
 
     private lateinit var appPrefUser: User      //User from App Preference
     private var appPrefAuction: Auctioner? = null      //Company from App Preference
     private var appPrefBidder: Bidder? = null      //Company from App Preference
     private lateinit var dbReference: FirebaseFirestore
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         setSupportActionBar(toolbar_dashboard)
+
+
+
+//        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val hamMenuBtn : ImageView = findViewById(R.id.navHamIcon)
+
+
+        hamMenuBtn.setOnClickListener {
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+
+            if(!drawerLayout.isDrawerOpen(GravityCompat.START)) drawerLayout.openDrawer(GravityCompat.START);
+            else drawerLayout.closeDrawer(GravityCompat.END);
+
+//            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//                drawerLayout.closeDrawer(GravityCompat.START)
+//            } else {
+//                super.onBackPressed()
+//            }
+        }
+
+//        val toggle = ActionBarDrawerToggle(
+//            this, drawerLayout, toolbar_dashboard, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+//        )
+
+//        drawerLayout.addDrawerListener(toggle)
+//        toggle.syncState()
+
+        navView.setNavigationItemSelectedListener(this)
+
 
         appPrefUser = AppPref(this).getUser()!!
         dbReference = FirebaseFirestore.getInstance()
@@ -67,21 +105,16 @@ class DashboardActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener
 
     }
 
-//    private fun checkVisibileView() {
-//        supportFragmentManager.findFragmentById(R.id.dashboardContainer)?.let {
-//            // the fragment exists
-//            if (it is ExploreFragment) {
-//                // The presented fragment is FooFragment type
-//                if (appPrefUser.userAccType.equals("Bidder")) {
-//                    floating_add_item_btn.visibility = View.GONE
-//                } else {
-//                    floating_add_item_btn.visibility = View.VISIBLE
-//                }
-//            } else {
-//                floating_add_item_btn.visibility = View.INVISIBLE
-//            }
-//        }
-//    }
+
+
+    override fun onBackPressed() {
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -137,6 +170,32 @@ class DashboardActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener
         ).commit()
     }
 
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.nav_home -> {
+                // Handle the camera action
+            }
+            R.id.nav_gallery -> {
+
+            }
+            R.id.nav_slideshow -> {
+
+            }
+            R.id.nav_tools -> {
+
+            }
+            R.id.nav_share -> {
+
+            }
+            R.id.nav_send -> {
+
+            }
+        }
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
 
 //    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 //        menuInflater.inflate(R.menu.dashboard, menu)

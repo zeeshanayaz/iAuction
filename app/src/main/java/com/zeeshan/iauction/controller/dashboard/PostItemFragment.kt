@@ -167,7 +167,7 @@ class PostItemFragment : Fragment() {
         val data = baos.toByteArray();
 
         ref.putBytes(data)
-            .addOnSuccessListener { uri ->
+            .addOnSuccessListener {
                 ref.downloadUrl.addOnSuccessListener {
 
                     postItemToFirestore(
